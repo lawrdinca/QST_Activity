@@ -11,6 +11,7 @@ public class Main {
 		// sout for IntelliJ
 
 		System.out.println("Hello. 1st Laboratory");
+		System.out.println("Let's add a test commit");
 
 		// We cannot do this: Profitable object = new Profitable()!!!!!!!
 
