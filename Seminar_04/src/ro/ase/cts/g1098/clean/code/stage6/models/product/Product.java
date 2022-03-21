@@ -1,7 +1,7 @@
 package ro.ase.cts.g1098.clean.code.stage6.models.product;
 
+import ro.ase.cts.g1098.clean.code.stage6.exceptions.MissingMarketingStrategyException;
 import ro.ase.cts.g1098.clean.code.stage6.interfaces.MarketingStrategyInterface;
-import ro.ase.cts.g1098.clean.code.stage6.models.marketing.AccountMarketingStrategy;
 
 // SOLID - DIP Dependency inversion principle
 // replace the AccountMarketingStrategy by an interface type
@@ -10,6 +10,16 @@ import ro.ase.cts.g1098.clean.code.stage6.models.marketing.AccountMarketingStrat
 public class Product {
 
 	MarketingStrategyInterface accountDiscountStrategy = null;
+	
+	
+
+	public void setAccountDiscountStrategy(MarketingStrategyInterface accountDiscountStrategy) {
+		
+		if(accountDiscountStrategy == null) {
+			throw new MissingMarketingStrategyException();
+		}
+		this.accountDiscountStrategy = accountDiscountStrategy;
+	}
 
 	public float getPriceDiscount(float productPrice, ProductType productType) {
 		return productPrice * productType.getDiscount();
@@ -25,6 +35,9 @@ public class Product {
 		float accountDiscount = 0;
 
 		if (productType != ProductType.NEW) {
+			if(this.accountDiscountStrategy == null) {
+				throw new MissingMarketingStrategyException();
+			}
 			accountDiscount = accountDiscountStrategy.getAccountDiscount(accountAgeInYears);
 		}
 
