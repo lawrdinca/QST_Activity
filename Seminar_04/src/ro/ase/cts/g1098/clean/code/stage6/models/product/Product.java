@@ -1,7 +1,7 @@
-package ro.ase.cts.g1098.lab3.clean.code.stage6.models.product;
+package ro.ase.cts.g1098.clean.code.stage6.models.product;
 
-import ro.ase.cts.g1098.lab3.clean.code.stage6.models.marketing.AccountMarketingStrategy;
-//stage 6
+import ro.ase.cts.g1098.clean.code.stage6.interfaces.MarketingStrategyInterface;
+import ro.ase.cts.g1098.clean.code.stage6.models.marketing.AccountMarketingStrategy;
 
 // SOLID - DIP Dependency inversion principle
 // replace the AccountMarketingStrategy by an interface type
@@ -9,7 +9,7 @@ import ro.ase.cts.g1098.lab3.clean.code.stage6.models.marketing.AccountMarketing
 
 public class Product {
 
-	AccountMarketingStrategy accountDiscountStrategy = null;
+	MarketingStrategyInterface accountDiscountStrategy = null;
 
 	public float getPriceDiscount(float productPrice, ProductType productType) {
 		return productPrice * productType.getDiscount();

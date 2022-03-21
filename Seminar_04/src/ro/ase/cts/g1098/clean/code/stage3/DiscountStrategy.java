@@ -1,4 +1,4 @@
-package ro.ase.cts.g1098.lab3.clean.code.stage3;
+package ro.ase.cts.g1098.clean.code.stage3;
 //stage 3
 
 // - remove statics and use enums instead

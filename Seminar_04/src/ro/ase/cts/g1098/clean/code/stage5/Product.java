@@ -1,4 +1,4 @@
-package ro.ase.cts.g1098.lab3.clean.code.stage5;
+package ro.ase.cts.g1098.clean.code.stage5;
 //stage 5
 
 // SOLID - Single Responsibility

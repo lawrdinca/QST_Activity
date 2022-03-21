@@ -1,4 +1,4 @@
-package ro.ase.cts.g1098.lab3.clean.code.stage4;
+package ro.ase.cts.g1098.clean.code.stage5;
 
 public enum ProductType {
 	NEW(1, 0.0f), NORMAL(2, 0.15f), ON_SALE(3, 0.25f), FINAL_SALE(4, 0.35f);

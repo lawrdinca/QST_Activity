@@ -1,4 +1,4 @@
-package ro.ase.cts.g1098.lab3.clean.code.stage6.models.marketing;
+package ro.ase.cts.g1098.clean.code.stage5;
 
 public class AccountMarketingStrategy {
 

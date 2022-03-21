@@ -1,4 +1,4 @@
-package ro.ase.cts.g1098.lab3.clean.code.stage4;
+package ro.ase.cts.g1098.clean.code.stage4;
 //stage 4
 
 // use the received productType and not the generic enum symbol
