@@ -1,7 +1,0 @@
-Based on the initial input(Account.java) the following steps were performed:
-
-1. The package "ro.ase.csie.cts.homework1.models.account" was created;
-2. The "Account.java" file was placed in the above mentioned package;
-3. The format of the given file is bad. Spaced between operators and/or attributes was added. Right indentention was added. Spacing in/between bracktes was also added --> Formatting (CLEAN CODE Principle);
-4. Some variable names are not respecting the lowerCamelCase principle: loan_value & account_type are now loanValue & accountType (General programming principle);
-5. The enum "AccountType.java" was created and added to the above mentioned package. It replaces the public static final attributes: STANDARD, BUDGET, PREMIUM,SUPER_PREMIUM (General programming principle);
