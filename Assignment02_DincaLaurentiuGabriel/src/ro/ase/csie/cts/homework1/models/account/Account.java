@@ -1,23 +1,29 @@
 package ro.ase.csie.cts.homework1.models.account;
 
-public class Account {
-	public double loanValue, rate;
-	public int daysActive, accountType;
-	public static final int STANDARD = 0, BUDGET = 1, PREMIUM = 2, SUPER_PREMIUM = 3;
+import ro.ase.csie.cts.homework1.interfaces.InterestRateInterface;
 
-	public double loan() {
-		System.out.println("The loan value is " + this.loanValue);
-		return loanValue;
+public class Account implements InterestRateInterface {
+	private double loanValue;
+	private double interestRate;
+	private int daysActive;
+	private AccountType accountType;
+
+	private static final int YEAR_DAYS = 365;
+	private static final float BROKER_FEE = 0.125f;
+
+	public Account(double loanValue, double interestRate, int daysActive, AccountType accountType) {
+		this.loanValue = loanValue;
+		this.interestRate = interestRate;
+		this.daysActive = daysActive;
+		this.accountType = accountType;
 	}
 
-	public double getRate() {
-		System.out.println("The rate is " + rate);
-		return this.rate;
+	public double getLoan() {
+		return this.loanValue;
 	}
 
-	// must have method - the lead has requested it in all classes
-	public double getMonthlyRate() {
-		return loanValue * rate;
+	public double getInterestRate() {
+		return this.interestRate;
 	}
 
 	public void setValue(double value) throws Exception {
@@ -28,14 +34,19 @@ public class Account {
 		}
 	}
 
-	public String to_string() {
-		return "Loan: " + this.loanValue + "; rate: " + this.rate + "; days active:" + daysActive + "; Type: "
-				+ accountType + ";";
-	}
-
-	public void print() {
-		int vb = 10;
-		System.out.println("This is an account");
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Account {\nValue:");
+		builder.append(this.loanValue);
+		builder.append("\nInterest Rate:");
+		builder.append(this.interestRate);
+		builder.append("\nDuration:");
+		builder.append(this.daysActive);
+		builder.append("\nType:");
+		builder.append(this.accountType);
+		builder.append("}");
+		return builder.toString();
 	}
 
 	public static double calculate(Account[] accounts) {
@@ -44,21 +55,28 @@ public class Account {
 		int temp = 365;
 		for (int i = 0; i < accounts.length; i++) {
 			account = accounts[i];
-			if (account.accountType == Account.PREMIUM || account.accountType == Account.SUPER_PREMIUM)
-				totalFee += .0125 * ( // 1.25% broker's fee
-				account.loanValue * Math.pow(account.rate, (account.daysActive / 365)) - account.loanValue); // interest-principal
+			if (account.accountType == AccountType.PREMIUM || account.accountType == AccountType.SUPER_PREMIUM)
+				totalFee += BROKER_FEE * ( // 1.25% broker's fee
+				account.loanValue * Math.pow(account.interestRate, (account.daysActive / YEAR_DAYS))
+						- account.loanValue); // interest-principal
 		}
 		return totalFee;
 	}
 
-	public Account(double value, double rate, int account_Type) throws Exception {
+	public Account(double value, double rate, AccountType account_Type) throws Exception {
 		if (value < 0)
 			throw new Exception();
 		else {
 			loanValue = value;
 		}
-		this.rate = rate;
+		this.interestRate = rate;
 		this.accountType = account_Type;
+	}
+
+	@Override
+	public double getMonthlyInterestRate(double loanValue, double interestRate) {
+
+		return loanValue * interestRate;
 	}
 
 }
