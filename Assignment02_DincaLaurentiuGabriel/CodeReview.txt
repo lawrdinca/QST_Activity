@@ -13,5 +13,11 @@ Based on the initial input(Account.java) the following steps were performed:
 9. The print() method was removed since it does not do anything --> Avoid creating unnecessary objects (PERFORMANCE principle);
 10. All the println() were removed from getLoan() and getInterestRate()
 11. The package "ro.ase.csie.homework1.exceptions" was created;
+12. 3 classes were created, one class corresponding to one attribute(i.e. InvalidDaysException --> daysActive) (CLEAN CODE principle);
 12. The package "ro.ase.csie.homework1.interfaces" was created;
 13. The InterestRateInterface was created and contains the abstract method "getMonthlyInterestRate" because it needs to be included in every class. The initial method was removed and the interface was implemented(GENERAL PROGRAMMING principle)
+14. 2 static final attributes were created YEAR_DAYS & BROKER_FEE
+15. The "calculate" method was renamed properly into computeTotalFee
+16. The local variables "account" and "temp" were removed from computeTotalFee
+17. The comments were removed from the previously mentioned method;
+18. The input is validated in the constructor (SECURITY principle);

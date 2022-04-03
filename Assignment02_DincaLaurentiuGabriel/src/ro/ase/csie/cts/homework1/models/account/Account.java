@@ -1,5 +1,8 @@
 package ro.ase.csie.cts.homework1.models.account;
 
+import ro.ase.csie.cts.homework1.exceptions.InvalidDaysException;
+import ro.ase.csie.cts.homework1.exceptions.InvalidInterestRateException;
+import ro.ase.csie.cts.homework1.exceptions.InvalidValueException;
 import ro.ase.csie.cts.homework1.interfaces.InterestRateInterface;
 
 public class Account implements InterestRateInterface {
@@ -12,9 +15,21 @@ public class Account implements InterestRateInterface {
 	private static final float BROKER_FEE = 0.125f;
 
 	public Account(double loanValue, double interestRate, int daysActive, AccountType accountType) {
-		this.loanValue = loanValue;
-		this.interestRate = interestRate;
-		this.daysActive = daysActive;
+		if (loanValue < 0) {
+			throw new InvalidValueException();
+		} else {
+			this.loanValue = loanValue;
+		}
+		if (interestRate < 0) {
+			throw new InvalidInterestRateException();
+		} else {
+			this.interestRate = interestRate;
+		}
+		if (daysActive < 0) {
+			throw new InvalidDaysException();
+		} else {
+			this.daysActive = daysActive;
+		}
 		this.accountType = accountType;
 	}
 
@@ -26,12 +41,35 @@ public class Account implements InterestRateInterface {
 		return this.interestRate;
 	}
 
-	public void setValue(double value) throws Exception {
-		if (value < 0)
-			throw new Exception();
-		else {
-			loanValue = value;
+	public void setLoanValue(double loanValue) {
+		if (loanValue < 0) {
+			throw new InvalidValueException();
+		} else {
+			this.loanValue = loanValue;
 		}
+	}
+
+	public static double computeTotalFee(Account[] accounts) {
+		double totalFee = 0.0;
+		for (int i = 0; i < accounts.length; i++) {
+			if (accounts[i].accountType == AccountType.PREMIUM
+					|| accounts[i].accountType == AccountType.SUPER_PREMIUM) {
+				totalFee += BROKER_FEE * (accounts[i].computeInterestPrincipal());
+			}
+		}
+		return totalFee;
+	}
+
+	public double computePeriod() {
+		return this.daysActive / YEAR_DAYS;
+	}
+
+	public double computeInterest() {
+		return Math.pow(this.interestRate, computePeriod());
+	}
+
+	public double computeInterestPrincipal() {
+		return this.loanValue * (computeInterest() - 1);
 	}
 
 	@Override
@@ -47,30 +85,6 @@ public class Account implements InterestRateInterface {
 		builder.append(this.accountType);
 		builder.append("}");
 		return builder.toString();
-	}
-
-	public static double calculate(Account[] accounts) {
-		double totalFee = 0.0;
-		Account account;
-		int temp = 365;
-		for (int i = 0; i < accounts.length; i++) {
-			account = accounts[i];
-			if (account.accountType == AccountType.PREMIUM || account.accountType == AccountType.SUPER_PREMIUM)
-				totalFee += BROKER_FEE * ( // 1.25% broker's fee
-				account.loanValue * Math.pow(account.interestRate, (account.daysActive / YEAR_DAYS))
-						- account.loanValue); // interest-principal
-		}
-		return totalFee;
-	}
-
-	public Account(double value, double rate, AccountType account_Type) throws Exception {
-		if (value < 0)
-			throw new Exception();
-		else {
-			loanValue = value;
-		}
-		this.interestRate = rate;
-		this.accountType = account_Type;
 	}
 
 	@Override
