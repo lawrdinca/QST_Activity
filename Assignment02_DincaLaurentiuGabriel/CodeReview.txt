@@ -5,19 +5,23 @@ Based on the initial input(Account.java) the following steps were performed:
 1. The package "ro.ase.csie.cts.homework1.models.account" was created;
 2. The "Account.java" file was placed in the above mentioned package;
 3. The format of the given file is bad. Spacing between operators and/or attributes was added. Right indentention was added. Spacing in/between bracktes was also added --> Formatting (CLEAN CODE principle);
+4. Encapsulation principle. All the attributes are changed to "private" --> classes and interfaces (GENERAL PROGRAMMING principle);
 4. Some variable names are not respecting the lowerCamelCase principle: loan_value & account_type are now loanValue & accountType (GENERAL PROGRAMMING principle);
-5. The enum "AccountType.java" was created and added to the above mentioned package. It replaces the public static final attributes: STANDARD, BUDGET, PREMIUM,SUPER_PREMIUM (GENERAL PROGRAMMINGprinciple);
+5. The enum "AccountType.java" was created and added to the above mentioned package. It replaces the public static final attributes: STANDARD, BUDGET, PREMIUM,SUPER_PREMIUM (GENERAL PROGRAMMING principle);
 6. The method loan() was renamed into getLoan() (CLEAN CODE Principle);
 7. The method getRate() was renamed into getInterestRate() (CLEAN CODE Principle);
 8. The to_string method was removed. the toString() method using a StringBuilder instead of string concatenation was generated (GENERAL PROGRAMMING principle);
 9. The print() method was removed since it does not do anything --> Avoid creating unnecessary objects (PERFORMANCE principle);
-10. All the println() were removed from getLoan() and getInterestRate()
+10. All the println() were removed from getLoan() and getInterestRate() -->Creating and Destroying objects(PERFORMANCE principle);
 11. The package "ro.ase.csie.homework1.exceptions" was created;
 12. 3 classes were created, one class corresponding to one attribute(i.e. InvalidDaysException --> daysActive) (CLEAN CODE principle);
-12. The package "ro.ase.csie.homework1.interfaces" was created;
-13. The InterestRateInterface was created and contains the abstract method "getMonthlyInterestRate" because it needs to be included in every class. The initial method was removed and the interface was implemented(GENERAL PROGRAMMING principle)
-14. 2 static final attributes were created YEAR_DAYS & BROKER_FEE
-15. The "calculate" method was renamed properly into computeTotalFee
-16. The local variables "account" and "temp" were removed from computeTotalFee
-17. The comments were removed from the previously mentioned method;
-18. The input is validated in the constructor (SECURITY principle);
+13. The package "ro.ase.csie.homework1.interfaces" was created;
+14. The InterestRateInterface was created and contains the abstract method "getMonthlyInterestRate" because it needs to be included in every class. The initial method was removed and the interface was implemented(GENERAL PROGRAMMING principle)
+15. 2 static final attributes(magic numbers) were created YEAR_DAYS & BROKER_FEE (GENERAL PROGRAMMING principle)
+16. The "calculate" method was renamed properly into computeTotalFee (CLEAN CODE principle)
+17. The local variables "account" and "temp" were removed from computeTotalFee
+18. The comments were removed from the previously mentioned method --> comments(CLEAN CODE principle);
+19. The input is validated in the constructor (SECURITY principle);
+20. Brackets were added in the if clause from computeTotalFee() (GENERAL PROGRAMMING principle);
+21. The computations were split into several different methods(computeLoanPeriod(), computeInterest(), computePrincipalDebt()) --> single responsibility (CLEAN CODE principle);
+22. A new method was added hasFee() to determine whether an account is at least Premium or not (CLEAN CODE principle)

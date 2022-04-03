@@ -52,23 +52,26 @@ public class Account implements InterestRateInterface {
 	public static double computeTotalFee(Account[] accounts) {
 		double totalFee = 0.0;
 		for (int i = 0; i < accounts.length; i++) {
-			if (accounts[i].accountType == AccountType.PREMIUM
-					|| accounts[i].accountType == AccountType.SUPER_PREMIUM) {
-				totalFee += BROKER_FEE * (accounts[i].computeInterestPrincipal());
+			if (accounts[i].hasFee()) {
+				totalFee += BROKER_FEE * (accounts[i].computePrincipalDebt());
 			}
 		}
 		return totalFee;
 	}
 
-	public double computePeriod() {
+	public boolean hasFee() {
+		return this.accountType.equals(AccountType.PREMIUM) || this.accountType.equals(AccountType.SUPER_PREMIUM);
+	}
+
+	public double computeLoanPeriod() {
 		return this.daysActive / YEAR_DAYS;
 	}
 
 	public double computeInterest() {
-		return Math.pow(this.interestRate, computePeriod());
+		return Math.pow(this.interestRate, computeLoanPeriod());
 	}
 
-	public double computeInterestPrincipal() {
+	public double computePrincipalDebt() {
 		return this.loanValue * (computeInterest() - 1);
 	}
 
